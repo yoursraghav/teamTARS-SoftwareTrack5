@@ -165,7 +165,111 @@
   </div>
 
 </div>
+<div class="page" id="page-courses">
 
+  <div class="section-title">Learn Programming 🎯</div>
+
+  <div class="courses-grid">
+
+    <div class="course-card" onclick="playCourse('ix9cRaBkVe0')">
+      <div class="course-thumb">🐍</div>
+      <div class="course-body">
+        <div class="course-title">Python Basics</div>
+        <div class="course-meta">Beginner Friendly</div>
+      </div>
+    </div>
+
+    <div class="course-card" onclick="playCourse('xTtL8E4LzTQ')">
+      <div class="course-thumb">☕</div>
+      <div class="course-body">
+        <div class="course-title">Java Programming</div>
+        <div class="course-meta">Core Concepts</div>
+      </div>
+    </div>
+
+    <div class="course-card" onclick="playCourse('xND0t1pr3KY')">
+      <div class="course-thumb">🌐</div>
+      <div class="course-body">
+        <div class="course-title">Web Development</div>
+        <div class="course-meta">HTML CSS JS</div>
+      </div>
+    </div>
+
+    <div class="course-card" onclick="playCourse('-TkoO8Z07hI')">
+      <div class="course-thumb">📊</div>
+      <div class="course-body">
+        <div class="course-title">Data Structures</div>
+        <div class="course-meta">DSA Concepts</div>
+      </div>
+    </div>
+
+    <div class="course-card" onclick="playCourse('wxznTygnRfQ')">
+      <div class="course-thumb">⚙️</div>
+      <div class="course-body">
+        <div class="course-title">Operating System</div>
+        <div class="course-meta">Core Subjects</div>
+      </div>
+    </div>
+
+    <div class="course-card" onclick="playCourse('CBYHwZcbD-s')">
+      <div class="course-thumb">🧠</div>
+      <div class="course-body">
+        <div class="course-title">DBMS</div>
+        <div class="course-meta">Database Systems</div>
+      </div>
+    </div>
+
+    <div class="course-card" onclick="playCourse('HGTJBPNC-Gw')">
+      <div class="course-thumb">🔗</div>
+      <div class="course-body">
+        <div class="course-title">Computer Networks</div>
+        <div class="course-meta">Networking Basics</div>
+      </div>
+    </div>
+
+    <div class="course-card" onclick="playCourse('lfmg-EJ8gm4')">
+      <div class="course-thumb">⚡</div>
+      <div class="course-body">
+        <div class="course-title">JavaScript</div>
+        <div class="course-meta">Frontend Logic</div>
+      </div>
+    </div>
+
+    <div class="course-card" onclick="playCourse('CgkZ7MvWUAA')">
+      <div class="course-thumb">🧩</div>
+      <div class="course-body">
+        <div class="course-title">React JS</div>
+        <div class="course-meta">Frontend Framework</div>
+      </div>
+    </div>
+
+    <div class="course-card" onclick="playCourse('c2M-rlkkT5o')">
+      <div class="course-thumb">🗄️</div>
+      <div class="course-body">
+        <div class="course-title">SQL</div>
+        <div class="course-meta">Database Queries</div>
+      </div>
+    </div>
+
+    <div class="course-card" onclick="playCourse('5OdVJbNCSso')">
+      <div class="course-thumb">🤖</div>
+      <div class="course-body">
+        <div class="course-title">Machine Learning</div>
+        <div class="course-meta">AI Basics</div>
+      </div>
+    </div>
+
+    <div class="course-card" onclick="playCourse('zZ6vybT1HQs')">
+      <div class="course-thumb">🚀</div>
+      <div class="course-body">
+        <div class="course-title">System Design</div>
+        <div class="course-meta">Advanced Concepts</div>
+      </div>
+    </div>
+
+  </div>
+
+</div>
       <!-- PASTE profile.html -->
        <!-- ═══════════════════════════════════
      PROFILE — profile.html
@@ -237,6 +341,20 @@
     </div>
 
   </div>
+</div>
+<div id="videoModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); z-index:999; justify-content:center; align-items:center;">
+
+  <div style="width:80%; height:80%; position:relative;">
+    
+    <iframe id="ytPlayer" width="100%" height="100%" frameborder="0" allowfullscreen></iframe>
+
+    <button onclick="closeVideo()" style="position:absolute; top:-40px; right:0; background:red; color:white; border:none; padding:8px 12px; cursor:pointer;">
+      ✖ Close
+    </button>
+
+  </div>
+
+</div>
   <script src="app.js"></script>
 </body>
 </html>
