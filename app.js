@@ -112,3 +112,7 @@ function closeVideo() {
   document.getElementById('videoModal').style.display = 'none';
   document.getElementById('ytPlayer').src = '';
 }
+function logout() {
+  localStorage.removeItem('isLoggedIn');
+  window.location.href = 'login.html';
+}

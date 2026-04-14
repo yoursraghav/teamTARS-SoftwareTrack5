@@ -38,43 +38,69 @@ function doLogin() {
   }
 
   err.style.display = 'none';
-  document.querySelector('.login-form .btn-primary').textContent =
-    'Signing in...';
+
+  // ✅ SAVE LOGIN STATE
+  localStorage.setItem('isLoggedIn', 'true');
+
+  document.querySelector('.login-form .btn-primary').textContent = 'Signing in...';
 
   setTimeout(() => {
-    window.location.href = 'EduTrack_Modern.html';
-  }, 1200);
+    window.location.href = 'index.html';
+  }, 1000);
 }
 
 // ─────────────────────────────
 // Signup Function
 // ─────────────────────────────
 function doSignup() {
-  const n = document.getElementById('su-name').value;
-  const e = document.getElementById('su-email').value;
-  const p = document.getElementById('su-pass').value;
-  const u = document.getElementById('su-univ').value;
+  const name  = document.getElementById('su-name').value.trim();
+  const email = document.getElementById('su-email').value.trim();
+  const pass  = document.getElementById('su-pass').value.trim();
+  const univ  = document.getElementById('su-univ').value.trim();
 
   const err = document.getElementById('signup-error');
   const suc = document.getElementById('signup-success');
 
-  if (!n || !e || !p || !u) {
+  // ❌ Validation
+  if (!name || !email || !pass || !univ) {
+    err.textContent = "Please fill all fields.";
     err.style.display = 'block';
     suc.style.display = 'none';
     return;
   }
 
+  if (pass.length < 6) {
+    err.textContent = "Password must be at least 6 characters.";
+    err.style.display = 'block';
+    suc.style.display = 'none';
+    return;
+  }
+
+  // 📦 Save user data (localStorage)
+  const user = {
+    name: name,
+    email: email,
+    password: pass,
+    university: univ
+  };
+
+  localStorage.setItem('user', JSON.stringify(user));
+
+  // ✅ mark logged in
+  localStorage.setItem('isLoggedIn', 'true');
+
+  // UI feedback
   err.style.display = 'none';
   suc.style.display = 'block';
 
-  document.querySelector('.signup-form .btn-primary').textContent =
-    'Creating account...';
+  const btn = document.querySelector('.signup-form .btn-primary');
+  btn.textContent = "Creating account...";
 
+  // ⏳ redirect
   setTimeout(() => {
-    window.location.href = 'EduTrack_Modern.html';
-  }, 1500);
+    window.location.href = 'index.html';
+  }, 1200);
 }
-
 // ─────────────────────────────
 // Password Strength Checker
 // ─────────────────────────────
