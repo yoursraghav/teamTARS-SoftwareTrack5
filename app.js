@@ -1,150 +1,211 @@
 // ═══════════════════════════════════
-// app.js — EduTrack Core Logic (NO AUTH)
+// app.js — EduTrack FULL LOGIC 🔥
 // ═══════════════════════════════════
 
-// ── Page titles map ──────────────────
+// ── Page titles ─────────────────────
 const PAGE_TITLES = {
-  dashboard:    'Dashboard',
-  courses:      'Courses',
-  todo:         'To-do list',
-  quizzes:      'Quizzes',
+  dashboard: 'Dashboard',
+  courses: 'Courses',
+  todo: 'To-do list',
+  quizzes: 'Quizzes',
   achievements: 'Achievements',
-  analysis:     'Analysis',
-  placement:    'Placement cell',
-  friends:      'Friends',
-  profile:      'Profile',
+  analysis: 'Analysis',
+  placement: 'Placement cell',
+  friends: 'Friends',
+  profile: 'Profile',
 };
 
-// ── Navigation (Page Switching) ──────
+// ── Page Switching ──────────────────
 function showPage(id, el) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
 
-  document.querySelectorAll('.page').forEach(p => {
-    p.classList.remove('active');
-  });
+  document.getElementById('page-' + id)?.classList.add('active');
 
-  const target = document.getElementById('page-' + id);
-  if (target) target.classList.add('active');
-
-  document.querySelectorAll('.nav-item').forEach(n => {
-    n.classList.remove('active');
-  });
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
   if (el) el.classList.add('active');
 
-  const title = document.getElementById('page-title');
-  if (title) {
-    title.textContent = PAGE_TITLES[id] || id;
-  }
+  document.getElementById('page-title').textContent = PAGE_TITLES[id] || id;
 
   document.getElementById('notif-panel')?.classList.remove('open');
 }
 
-// ── Sidebar toggle ───────────────────
+// ── Sidebar ─────────────────────────
 function toggleSidebar() {
   document.getElementById('sidebar')?.classList.toggle('hidden');
 }
 
-// ── Notification panel ───────────────
+// ── Notifications ───────────────────
 function toggleNotif() {
   document.getElementById('notif-panel')?.classList.toggle('open');
 }
 
-// ── Close notification on outside click
-document.addEventListener('click', function (e) {
-  const panel = document.getElementById('notif-panel');
-
-  if (
-    panel &&
-    !e.target.closest('.notif-btn') &&
-    !e.target.closest('.notif-panel')
-  ) {
-    panel.classList.remove('open');
+document.addEventListener('click', (e) => {
+  if (!e.target.closest('.notif-btn') && !e.target.closest('.notif-panel')) {
+    document.getElementById('notif-panel')?.classList.remove('open');
   }
 });
 
-// ── Todo checkbox toggle ─────────────
+// ═══════════════════════════════════
+// 📝 TODO SYSTEM
+// ═══════════════════════════════════
+
 function toggleTodo(el) {
   el.classList.toggle('done');
   el.textContent = el.classList.contains('done') ? '✓' : '';
-  el.nextElementSibling?.classList.toggle('done');
-
+  el.nextElementSibling.classList.toggle('done');
   saveTodos();
 }
 
-// ── Save Todos 💾
 function saveTodos() {
   const todos = [];
-
   document.querySelectorAll('.todo-item').forEach(item => {
-    const text = item.querySelector('.todo-text').textContent;
-    const done = item.querySelector('.todo-check').classList.contains('done');
-
-    todos.push({ text, done });
+    todos.push({
+      text: item.querySelector('.todo-text').textContent,
+      done: item.querySelector('.todo-check').classList.contains('done')
+    });
   });
-
   localStorage.setItem('todos', JSON.stringify(todos));
 }
 
-// ── Load Todos 🔄
 function loadTodos() {
   const data = JSON.parse(localStorage.getItem('todos')) || [];
+  if (!data.length) return;
 
   const container = document.getElementById('page-todo');
-  if (!container || data.length === 0) return;
 
-  const html = data.map(t => `
-    <div class="todo-item">
-      <div class="todo-check ${t.done ? 'done' : ''}" onclick="toggleTodo(this)">
-        ${t.done ? '✓' : ''}
+  container.innerHTML = `
+    <div class="section-title">Today's tasks</div>
+    ${data.map(t => `
+      <div class="todo-item">
+        <div class="todo-check ${t.done ? 'done' : ''}" onclick="toggleTodo(this)">
+          ${t.done ? '✓' : ''}
+        </div>
+        <div class="todo-text ${t.done ? 'done' : ''}">${t.text}</div>
+        <div class="todo-due">${t.done ? 'Done' : 'Pending'}</div>
       </div>
-      <div class="todo-text ${t.done ? 'done' : ''}">${t.text}</div>
-      <div class="todo-due">${t.done ? 'Done' : 'Pending'}</div>
-    </div>
-  `).join('');
-
-  container.innerHTML = `<div class="section-title">Today's tasks</div>` + html;
+    `).join('')}
+  `;
 }
 
-// ── Course Search 🔍
-document.addEventListener('input', function (e) {
+// ═══════════════════════════════════
+// 🏆 ACHIEVEMENTS SYSTEM
+// ═══════════════════════════════════
 
+function unlockAchievement(name) {
+  let unlocked = JSON.parse(localStorage.getItem('achievements')) || [];
+
+  if (!unlocked.includes(name)) {
+    unlocked.push(name);
+    localStorage.setItem('achievements', JSON.stringify(unlocked));
+    alert("🏆 Achievement unlocked: " + name);
+  }
+}
+
+// Example trigger
+function checkAchievements() {
+  const todos = JSON.parse(localStorage.getItem('todos')) || [];
+
+  if (todos.filter(t => t.done).length >= 5) {
+    unlockAchievement("Task Master");
+  }
+}
+
+// ═══════════════════════════════════
+// 💼 PLACEMENT SYSTEM
+// ═══════════════════════════════════
+
+function applyJob(company) {
+  let applied = JSON.parse(localStorage.getItem('appliedJobs')) || [];
+
+  if (!applied.includes(company)) {
+    applied.push(company);
+    localStorage.setItem('appliedJobs', JSON.stringify(applied));
+    alert("✅ Applied to " + company);
+  } else {
+    alert("Already applied!");
+  }
+}
+
+// ═══════════════════════════════════
+// 📊 ANALYSIS SYSTEM
+// ═══════════════════════════════════
+
+function updateAnalysis() {
+  const todos = JSON.parse(localStorage.getItem('todos')) || [];
+
+  const completed = todos.filter(t => t.done).length;
+  const total = todos.length;
+
+  console.log("Progress:", completed + "/" + total);
+
+  // You can later connect this to charts
+}
+
+// ═══════════════════════════════════
+// 👥 FRIEND SYSTEM
+// ═══════════════════════════════════
+
+function addFriend(name) {
+  let friends = JSON.parse(localStorage.getItem('friends')) || [];
+
+  friends.push(name);
+  localStorage.setItem('friends', JSON.stringify(friends));
+
+  alert("🤝 Friend added: " + name);
+}
+
+function loadFriends() {
+  const friends = JSON.parse(localStorage.getItem('friends')) || [];
+
+  const list = document.querySelector('.friends-list');
+  if (!list) return;
+
+  list.innerHTML = friends.map(f => `
+    <div class="friend-item">
+      <div class="friend-av">${f[0]}</div>
+      <div class="friend-name">${f}</div>
+    </div>
+  `).join('');
+}
+
+// ═══════════════════════════════════
+// 🎥 YOUTUBE PLAYER
+// ═══════════════════════════════════
+
+function playCourse(videoId) {
+  document.getElementById('videoModal').style.display = 'flex';
+  document.getElementById('ytPlayer').src =
+    `https://www.youtube.com/embed/${videoId}?autoplay=1`;
+}
+
+function closeVideo() {
+  document.getElementById('videoModal').style.display = 'none';
+  document.getElementById('ytPlayer').src = '';
+}
+
+// ═══════════════════════════════════
+// 🔍 SEARCH
+// ═══════════════════════════════════
+
+document.addEventListener('input', (e) => {
   if (e.target.matches('.search-bar input')) {
     const search = e.target.value.toLowerCase();
 
     document.querySelectorAll('.course-card').forEach(card => {
-      const title = card.querySelector('.course-title')?.textContent.toLowerCase() || '';
-      const meta  = card.querySelector('.course-meta')?.textContent.toLowerCase() || '';
-
-      card.style.display =
-        (title.includes(search) || meta.includes(search)) ? 'block' : 'none';
+      const text = card.textContent.toLowerCase();
+      card.style.display = text.includes(search) ? 'block' : 'none';
     });
   }
-
 });
 
-// ── Play YouTube 🎥
-function playCourse(videoId) {
-  const modal = document.getElementById('videoModal');
-  const player = document.getElementById('ytPlayer');
+// ═══════════════════════════════════
+// 🚀 INIT
+// ═══════════════════════════════════
 
-  if (modal && player) {
-    modal.style.display = 'flex';
-    player.src = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
-  }
-}
-
-// ── Close video
-function closeVideo() {
-  const modal = document.getElementById('videoModal');
-  const player = document.getElementById('ytPlayer');
-
-  if (modal && player) {
-    modal.style.display = 'none';
-    player.src = '';
-  }
-}
-
-// ── Page Load Setup ──────────────────
 window.onload = () => {
   showPage('dashboard');
   loadTodos();
+  loadFriends();
+  updateAnalysis();
+  checkAchievements();
 };
