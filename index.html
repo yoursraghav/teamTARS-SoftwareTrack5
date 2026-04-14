@@ -19,9 +19,19 @@
     </div>
 
     <nav>
-      <div class="nav-item active" onclick="showPage('dashboard', this)">🏠 Dashboard</div>
-      <div class="nav-item" onclick="showPage('profile', this)">👤 Profile</div>
-    </nav>
+    <div class="nav-item active" onclick="showPage('dashboard',this)"><span class="nav-icon">🏠</span>Dashboard</div>
+    <div class="nav-item" onclick="showPage('courses',this)"><span class="nav-icon">📚</span>Courses</div>
+    <div class="nav-item" onclick="showPage('todo',this)"><span class="nav-icon">✅</span>To-do list</div>
+    <div class="nav-item" onclick="showPage('quizzes',this)"><span class="nav-icon">📝</span>Quizzes</div>
+    <div class="nav-item" onclick="showPage('achievements',this)"><span class="nav-icon">🏆</span>Achievements</div>
+    <div class="nav-item" onclick="showPage('analysis',this)"><span class="nav-icon">📊</span>Analysis</div>
+    <div class="nav-item" onclick="showPage('placement',this)"><span class="nav-icon">💼</span>Placement cell</div>
+    <div class="nav-item" onclick="showPage('friends',this)"><span class="nav-icon">👥</span>Friends</div>
+    <div class="nav-item" onclick="showPage('profile',this)"><span class="nav-icon">👤</span>Profile</div>
+    <div class="nav-item" style="margin-top:auto;color:#f87171" onclick="alert('Logging out...')">
+      <span class="nav-icon">🚪</span>Logout
+    </div>
+  </nav>
   </div>
 
   <!-- Main -->
