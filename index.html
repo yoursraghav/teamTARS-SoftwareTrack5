@@ -95,7 +95,29 @@
       <rect x="110" y="210" width="15" height="25" rx="5" fill="#4a90e2" stroke="#2c5aa0" stroke-width="2"/>
     </symbol>
   </svg>
+  <script>
+    // Authentication check - redirect to login if not authenticated
+    (function() {
+      const user = localStorage.getItem('user');
+      if (!user) {
+        window.location.href = 'login.html';
+      }
+    })();
+  </script>
+  <script src="backend.js"></script>
   <script src="app.js"></script>
   <script src="quizbot.js"></script>
+  <script>
+    // Handle logout
+    document.addEventListener('DOMContentLoaded', () => {
+      const logoutBtn = document.querySelector('[data-page="logout"]');
+      if (logoutBtn) {
+        logoutBtn.addEventListener('click', () => {
+          localStorage.removeItem('user');
+          window.location.href = 'login.html';
+        });
+      }
+    });
+  </script>
 </body>
 </html>

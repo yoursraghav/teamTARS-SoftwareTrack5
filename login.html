@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>QuestLog Login</title>
+  <link rel="stylesheet" href="style1.css" />
+</head>
+<body class="login-body">
+  <main class="login-shell">
+    <section class="login-brand-panel">
+      <div class="login-brand-card">
+        <div class="login-orb login-orb-one"></div>
+        <div class="login-orb login-orb-two"></div>
+        <svg class="login-hero-logo" viewBox="0 0 300 350" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <use href="#questlog-logo"></use>
+        </svg>
+        <div class="login-brand-copy">
+          <p class="login-kicker">QuestLog</p>
+          <h1>Learn, track, and grow from one focused workspace.</h1>
+          <p>Sign in with your user ID or phone number to continue your learning streak, placement prep, and course progress.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="login-form-panel">
+      <div class="login-form-card">
+        <div class="auth-switch">
+          <button class="auth-tab active" type="button" data-panel="login-panel">Login</button>
+          <button class="auth-tab" type="button" data-panel="signup-panel">Sign Up</button>
+        </div>
+
+        <div id="auth-message" class="auth-message hidden" role="status" aria-live="polite"></div>
+
+        <section id="login-panel" class="auth-panel active">
+          <div class="panel-heading">
+            <h2>Welcome back</h2>
+            <p>Enter your user ID or number and password.</p>
+          </div>
+          <form id="login-form" class="auth-form">
+            <label class="auth-field">
+              <span>User ID or Number</span>
+              <input type="text" id="login-identifier" placeholder="asha_sharma or 9876543210" required />
+            </label>
+            <label class="auth-field">
+              <span>Password</span>
+              <input type="password" id="login-password" placeholder="Enter password" required />
+            </label>
+            <div class="auth-links">
+              <button type="button" class="link-button" id="show-forgot">Forgot password?</button>
+              <button type="button" class="link-button" id="show-signup">New user? Sign up</button>
+            </div>
+            <button type="submit" class="auth-submit">Login to QuestLog</button>
+          </form>
+        </section>
+
+        <section id="signup-panel" class="auth-panel hidden">
+          <div class="panel-heading">
+            <h2>Create account</h2>
+            <p>Start with a fresh QuestLog profile in seconds.</p>
+          </div>
+          <form id="signup-form" class="auth-form">
+            <label class="auth-field">
+              <span>Full Name</span>
+              <input type="text" id="signup-name" placeholder="Asha Sharma" required />
+            </label>
+            <label class="auth-field">
+              <span>User ID</span>
+              <input type="text" id="signup-id" placeholder="Choose a unique ID" required />
+            </label>
+            <label class="auth-field">
+              <span>Phone Number</span>
+              <input type="tel" id="signup-phone" placeholder="10 digit mobile number" required />
+            </label>
+            <label class="auth-field">
+              <span>Password</span>
+              <input type="password" id="signup-password" placeholder="Create password" required />
+            </label>
+            <button type="submit" class="auth-submit">Create account</button>
+          </form>
+        </section>
+
+        <section id="forgot-panel" class="auth-panel hidden">
+          <div class="panel-heading">
+            <h2>Reset password</h2>
+            <p>Enter your user ID or registered number to generate a temporary password.</p>
+          </div>
+          <form id="forgot-form" class="auth-form">
+            <label class="auth-field">
+              <span>User ID or Number</span>
+              <input type="text" id="forgot-identifier" placeholder="Enter your account ID or number" required />
+            </label>
+            <button type="submit" class="auth-submit">Generate temporary password</button>
+          </form>
+          <button type="button" class="link-button standalone-link" id="back-to-login">Back to login</button>
+        </section>
+
+        <div class="demo-credentials">
+          <strong>Demo login</strong>
+          <p>User ID: <span>`asha_sharma`</span> | Password: <span>`asha@123`</span></p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <svg xmlns="http://www.w3.org/2000/svg" style="display:none;">
+    <symbol id="questlog-logo" viewBox="0 0 300 350">
+      <circle cx="150" cy="140" r="120" fill="rgba(124,99,255,0.15)"/>
+      <rect x="80" y="60" width="140" height="160" rx="12" fill="#7c4dff" stroke="#5a2d9f" stroke-width="3"/>
+      <text x="100" y="90" font-size="14" font-weight="bold" fill="#fff" letter-spacing="1">QUIZZES</text>
+      <rect x="95" y="100" width="110" height="6" rx="3" fill="#a370ff"/>
+      <circle cx="215" cy="103" r="7" fill="#ffd54f"/>
+      <text x="100" y="135" font-size="14" font-weight="bold" fill="#fff" letter-spacing="1">ASSIGNMENTS</text>
+      <rect x="95" y="145" width="110" height="6" rx="3" fill="#a370ff"/>
+      <text x="100" y="180" font-size="14" font-weight="bold" fill="#fff" letter-spacing="1">PROJECTS</text>
+      <rect x="95" y="190" width="110" height="6" rx="3" fill="#ff9800"/>
+      <path d="M 210 185 L 215 198 L 225 190 Z" fill="#ffd54f" stroke="#fff" stroke-width="1"/>
+      <circle cx="60" cy="80" r="8" fill="#6a4c93"/>
+      <path d="M 50 100 Q 60 95 70 100" fill="none" stroke="#6a4c93" stroke-width="3"/>
+      <polygon points="45,105 75,105 70,140 50,140" fill="#6a4c93"/>
+      <rect x="230" y="130" width="45" height="35" rx="3" fill="#8b6f47" stroke="#5a3d1a" stroke-width="2"/>
+      <path d="M 235 130 Q 257.5 120 280 130" fill="#b8956a"/>
+      <circle cx="245" cy="148" r="4" fill="#ffd54f"/>
+      <circle cx="265" cy="148" r="4" fill="#ffd54f"/>
+      <polygon points="190,50 195,60 206,62 198,69 200,80 190,76 180,80 182,69 174,62 185,60" fill="#ffd54f"/>
+      <polygon points="85,35 88,42 96,43 91,48 93,56 85,52 77,56 79,48 74,43 82,42" fill="#ffd54f"/>
+      <polygon points="260,80 263,87 271,88 266,93 268,101 260,97 252,101 254,93 249,88 257,87" fill="#ffd54f"/>
+    </symbol>
+  </svg>
+
+  <script src="backend.js"></script>
+  <script src="login.js"></script>
+</body>
+</html>

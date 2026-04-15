@@ -1,0 +1,96 @@
+{
+  "jobs": [
+    {
+      "id": 1,
+      "company": "NodeWare",
+      "role": "Full-stack Developer",
+      "location": "Remote",
+      "salary": "₹8-12 LPA",
+      "openings": 50,
+      "deadline": "2026-04-20",
+      "skills": ["React", "Node.js", "MongoDB"],
+      "description": "Join our dynamic team to build scalable web applications using modern technologies.",
+      "applyLink": "https://www.linkedin.com/company/nodeware/jobs/",
+      "logo": "🚀"
+    },
+    {
+      "id": 2,
+      "company": "Finova",
+      "role": "Data Science Intern",
+      "location": "Bangalore",
+      "salary": "₹25k/month",
+      "openings": 20,
+      "deadline": "2026-04-27",
+      "skills": ["Python", "ML", "SQL"],
+      "description": "Work on real-world data science projects and learn from industry experts.",
+      "applyLink": "https://www.linkedin.com/company/finova/jobs/",
+      "logo": "📊"
+    },
+    {
+      "id": 3,
+      "company": "CloudMatrix",
+      "role": "DevOps Engineer",
+      "location": "Hyderabad",
+      "salary": "₹10-15 LPA",
+      "openings": 15,
+      "deadline": "2026-04-23",
+      "skills": ["AWS", "Docker", "Kubernetes"],
+      "description": "Design and maintain cloud infrastructure for high-performance applications.",
+      "applyLink": "https://www.linkedin.com/company/cloudmatrix/jobs/",
+      "logo": "☁️"
+    },
+    {
+      "id": 4,
+      "company": "TechNova",
+      "role": "Frontend Developer",
+      "location": "Mumbai",
+      "salary": "₹6-10 LPA",
+      "openings": 30,
+      "deadline": "2026-04-25",
+      "skills": ["React", "JavaScript", "CSS"],
+      "description": "Create beautiful and responsive user interfaces for our web applications.",
+      "applyLink": "https://www.linkedin.com/company/technova/jobs/",
+      "logo": "💻"
+    },
+    {
+      "id": 5,
+      "company": "DataFlow",
+      "role": "Machine Learning Engineer",
+      "location": "Pune",
+      "salary": "₹12-18 LPA",
+      "openings": 12,
+      "deadline": "2026-04-30",
+      "skills": ["Python", "TensorFlow", "PyTorch"],
+      "description": "Develop and deploy machine learning models for various business applications.",
+      "applyLink": "https://www.linkedin.com/company/dataflow/jobs/",
+      "logo": "🤖"
+    }
+  ],
+  "applications": [
+    {
+      "id": 1,
+      "jobId": 1,
+      "userId": "asha_sharma",
+      "status": "Applied",
+      "appliedDate": "2026-04-13",
+      "company": "NodeWare",
+      "role": "Full-stack Developer"
+    },
+    {
+      "id": 2,
+      "jobId": 3,
+      "userId": "asha_sharma",
+      "status": "Interview",
+      "appliedDate": "2026-04-10",
+      "company": "CloudMatrix",
+      "role": "Data Analyst"
+    }
+  ],
+  "courseRecommendations": {
+    "Web Development": ["React JS", "JavaScript"],
+    "Data Structures": ["System Design", "Machine Learning"],
+    "Machine Learning": ["System Design", "Data Structures"],
+    "JavaScript": ["React JS", "Node.js"],
+    "SQL": ["System Design", "Machine Learning"]
+  }
+}

@@ -2,6 +2,10 @@
   quizOpen: false
 };
 
+const QUIZ_ROUND_SIZE = 15;
+const MCQ_PER_ROUND = 10;
+const TYPING_PER_ROUND = 5;
+
 const QuibotPlatform = {
   availableCourses: [
     'python',
@@ -91,6 +95,14 @@ const QuibotPlatform = {
   saveUserData: function(data) {
     localStorage.setItem('quizbotUser', JSON.stringify(data));
   },
+  escapeHtml: function(value) {
+    return String(value)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+  },
   updateQuizStatus: function() {
     const user = this.getUserData();
     const hearts = document.getElementById('quiz-hearts');
@@ -148,22 +160,22 @@ const QuibotPlatform = {
     );
     const mcqPool = available.filter(q => q.type === 'mcq');
     const typingPool = available.filter(q => q.type === 'typing');
-    const selectedMcq = this.pickRandom(mcqPool, 7);
-    const selectedTyping = this.pickRandom(typingPool, 3);
+    const selectedMcq = this.pickRandom(mcqPool, MCQ_PER_ROUND);
+    const selectedTyping = this.pickRandom(typingPool, TYPING_PER_ROUND);
     let batch = [...selectedMcq, ...selectedTyping];
-    if (batch.length < 10) {
+    if (batch.length < QUIZ_ROUND_SIZE) {
       const remaining = available.filter(q => !batch.includes(q));
-      batch = [...batch, ...this.pickRandom(remaining, 10 - batch.length)];
+      batch = [...batch, ...this.pickRandom(remaining, QUIZ_ROUND_SIZE - batch.length)];
     }
-    if (batch.length < 10) {
+    if (batch.length < QUIZ_ROUND_SIZE) {
       this.state.historyIds = [];
       const resetPool = this.knowledgeBase.filter(q =>
         selected.includes(q.course) &&
         q.timestamp <= (this.state.watchHistory[q.course] || 0)
       );
-      const resetMcq = this.pickRandom(resetPool.filter(q => q.type === 'mcq'), 7);
-      const resetTyping = this.pickRandom(resetPool.filter(q => q.type === 'typing'), 3);
-      batch = [...resetMcq, ...resetTyping].slice(0, 10);
+      const resetMcq = this.pickRandom(resetPool.filter(q => q.type === 'mcq'), MCQ_PER_ROUND);
+      const resetTyping = this.pickRandom(resetPool.filter(q => q.type === 'typing'), TYPING_PER_ROUND);
+      batch = [...resetMcq, ...resetTyping].slice(0, QUIZ_ROUND_SIZE);
     }
     if (!batch.length) {
       this.quizArea.innerHTML = '<div class="quizbot-question"><strong>No quiz questions are available.</strong></div>';
@@ -229,14 +241,14 @@ const QuibotPlatform = {
     let html = `
       <div class="quizbot-round-header">
         <div>${this.courseNames[q.course] || q.course.toUpperCase()}</div>
-        <div>Question ${this.state.currentIndex + 1}/10</div>
+        <div>Question ${this.state.currentIndex + 1}/${this.state.currentQuestions.length}</div>
       </div>
       <div class="quizbot-timer-row">
         <div class="timer-label">Time</div>
         <div class="timer-value"><span id="timer">${q.timeLimit}</span>s</div>
       </div>
       <div class="timer-track"><div class="timer-fill" id="timer-fill"></div></div>
-      <div class="quizbot-question"><strong>${q.text}</strong></div>
+      <div class="quizbot-question"><strong>${this.escapeHtml(q.text)}</strong></div>
     `;
     if (q.type === 'mcq') {
       html += `
@@ -244,14 +256,14 @@ const QuibotPlatform = {
           ${q.options.map((opt, index) => `
             <button class="quizbot-option" data-index="${index}" type="button">
               <span class="option-label">${String.fromCharCode(65 + index)}</span>
-              ${opt}
+              <span class="option-text">${this.escapeHtml(opt)}</span>
             </button>
           `).join('')}
         </div>
       `;
     } else {
       html += `
-        <textarea id="code-input" placeholder="${q.placeholder || 'Type your answer here...'}"></textarea>
+        <textarea id="code-input" placeholder="${this.escapeHtml(q.placeholder || 'Type your answer here...')}"></textarea>
         <button class="button-primary quizbot-submit">Submit Code</button>
       `;
     }
@@ -302,6 +314,7 @@ const QuibotPlatform = {
         const isCorrect = userInput.toLowerCase() === (q.expected || '').toLowerCase();
         feedback.innerHTML = `
           <div>${isCorrect ? '✅ Code Correct!' : '❌ Check your code and try again.'}</div>
+          ${isCorrect ? '' : `<small>Correct answer: ${this.escapeHtml(q.expected || 'N/A')}</small>`}
           <small>${q.explanation || ''}</small>
         `;
         submit.disabled = true;
@@ -408,10 +421,10 @@ function initQuizBot() {
         <p>Which element creates a button in HTML?</p>
       </div>
       <div class="quizbot-options quizbot-grid-2">
-        <button class="quizbot-option" type="button"><span class="option-label">A</span>&lt;btn&gt;</button>
-        <button class="quizbot-option correct" type="button"><span class="option-label">B</span>&lt;button&gt;</button>
-        <button class="quizbot-option" type="button"><span class="option-label">C</span>&lt;input-text&gt;</button>
-        <button class="quizbot-option" type="button"><span class="option-label">D</span>&lt;clickable&gt;</button>
+        <button class="quizbot-option" type="button"><span class="option-label">A</span><span class="option-text">&lt;btn&gt;</span></button>
+        <button class="quizbot-option correct" type="button"><span class="option-label">B</span><span class="option-text">&lt;button&gt;</span></button>
+        <button class="quizbot-option" type="button"><span class="option-label">C</span><span class="option-text">&lt;input-text&gt;</span></button>
+        <button class="quizbot-option" type="button"><span class="option-label">D</span><span class="option-text">&lt;clickable&gt;</span></button>
       </div>
       <div class="quizbot-feedback">Correct answer: &lt;button&gt;.</div>
     `;
