@@ -43,6 +43,11 @@ const userProfile = {
     { id: 11, title: "Interview Prep Lab", category: "Placement", progress: 0 }
   ],
   badges: ["video_viewer", "learning_streak", "quiz_champion"],
+  todos: [
+    { task: "Review React hooks", priority: "high", due: "Due today" },
+    { task: "Attempt data structures quiz", priority: "high", due: "Urgent" },
+    { task: "Update resume", priority: "medium", due: "Optional" }
+  ],
   notifications: [
     { title: "DreamTech is hiring", detail: "Frontend and Backend roles - 5 days left" },
     { title: "Placement workshop", detail: "Session at 6 PM on Friday" }
@@ -71,6 +76,23 @@ const userProfile = {
     { rank: 3, name: "Amit", points: 2080 }
   ]
 };
+
+const courseMapping = {
+  "Python Basics": "python",
+  "JavaScript": "js",
+  "Web Development": "html_css",
+  "SQL": "sql"
+};
+
+if (typeof QuibotPlatform !== 'undefined') {
+  QuibotPlatform.state.watchHistory = {};
+  userProfile.courses.forEach(course => {
+    const courseName = courseMapping[course.title];
+    if (courseName) QuibotPlatform.state.watchHistory[courseName] = course.watched;
+  });
+  QuibotPlatform.state.enrolledCourses = userProfile.courses.map(c => courseMapping[c.title]).filter(Boolean);
+  QuibotPlatform.state.selectedCourses = QuibotPlatform.state.enrolledCourses;
+}
 
 function initializeVideoTracking() {
   if (!localStorage.getItem("videoTracking")) {
@@ -309,21 +331,33 @@ function renderTodo() {
     <div class="grid grid-2">
       <div class="card">
         <h2>Today’s tasks</h2>
-        <div class="list-card"><div><strong>Review React hooks</strong><span>Complete chapter and notes</span></div><span class="badge">Due today</span></div>
-        <div class="list-card"><div><strong>Attempt data structures quiz</strong><span>Score target 80%</span></div><span class="badge">Urgent</span></div>
-        <div class="list-card"><div><strong>Update resume</strong><span>Add latest projects and badges</span></div><span class="badge">Optional</span></div>
+        ${userProfile.todos.map(todo => `
+          <div class="list-card"><div><strong>${todo.task}</strong><span>${todo.due}</span></div><span class="badge">${todo.priority}</span></div>
+        `).join('')}
       </div>
       <div class="card">
-        <h2>Study streak</h2>
-        <div class="progress-block">
-          <div class="progress-label"><span>Consistency</span><strong>7 days</strong></div>
-          <div class="graph-bar"><div class="graph-fill" style="width: 88%"></div></div>
-          <div class="progress-label"><span>Quiz readiness</span><strong>76%</strong></div>
-          <div class="graph-bar"><div class="graph-fill" style="width: 76%"></div></div>
-        </div>
+        <h2>Add new task</h2>
+        <input id="todo-task" placeholder="Task description" />
+        <select id="todo-priority">
+          <option value="low">Low</option>
+          <option value="medium">Medium</option>
+          <option value="high">High</option>
+        </select>
+        <input id="todo-due" placeholder="Due date or note" />
+        <button onclick="addTodo()">Add Task</button>
       </div>
     </div>
   `;
+}
+
+function addTodo() {
+  const task = document.getElementById('todo-task').value.trim();
+  const priority = document.getElementById('todo-priority').value;
+  const due = document.getElementById('todo-due').value.trim();
+  if (task) {
+    userProfile.todos.push({ task, priority, due: due || 'No due date' });
+    renderPage('todo');
+  }
 }
 
 function renderQuizzes() {
@@ -331,7 +365,7 @@ function renderQuizzes() {
     <div class="page-heading">
       <div>
         <h1>Quizzes</h1>
-        <p class="page-note">Fake quiz progress and leader insights so the prototype feels real.</p>
+        <p class="page-note">Quiz progress and leader insights for realistic experience.</p>
       </div>
     </div>
     <div class="grid grid-2">
@@ -427,7 +461,7 @@ function renderPlacement() {
     <div class="page-heading">
       <div>
         <h1>Placement Cell</h1>
-        <p class="page-note">Fake placement pipeline with companies and active hiring updates.</p>
+        <p class="page-note">Placement pipeline with companies and active hiring updates.</p>
       </div>
     </div>
     <div class="grid grid-2">
