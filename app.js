@@ -1,19 +1,48 @@
-﻿const userProfile = {
+﻿const allCourses = [
+  { id: 1, title: "Python Basics", emoji: "🐍", category: "Backend", youtube: "ix9cRaBkVe0", duration: 3600 },
+  { id: 2, title: "Java Programming", emoji: "☕", category: "Backend", youtube: "xTtL8E4LzTQ", duration: 4200 },
+  { id: 3, title: "Web Development", emoji: "🌐", category: "Frontend", youtube: "xND0t1pr3KY", duration: 5400 },
+  { id: 4, title: "Data Structures", emoji: "📊", category: "Core", youtube: "-TkoO8Z07hI", duration: 6000 },
+  { id: 5, title: "Operating System", emoji: "⚙️", category: "Core", youtube: "wxznTygnRfQ", duration: 4800 },
+  { id: 6, title: "DBMS", emoji: "🧠", category: "Database", youtube: "CBYHwZcbD-s", duration: 5100 },
+  { id: 7, title: "Computer Networks", emoji: "🔗", category: "Core", youtube: "HGTJBPNC-Gw", duration: 4500 },
+  { id: 8, title: "JavaScript", emoji: "⚡", category: "Frontend", youtube: "lfmg-EJ8gm4", duration: 4200 },
+  { id: 9, title: "React JS", emoji: "🧩", category: "Frontend", youtube: "CgkZ7MvWUAA", duration: 5700 },
+  { id: 10, title: "SQL", emoji: "🗄️", category: "Database", youtube: "c2M-rlkkT5o", duration: 3900 },
+  { id: 11, title: "Machine Learning", emoji: "🤖", category: "AI", youtube: "5OdVJbNCSso", duration: 6300 },
+  { id: 12, title: "System Design", emoji: "🚀", category: "Advanced", youtube: "zZ6vybT1HQs", duration: 5400 }
+];
+
+const badgesAvailable = [
+  { id: "python_master", name: "Python Master", icon: "🐍", requirement: "Complete Python Basics course" },
+  { id: "web_wizard", name: "Web Wizard", icon: "🌐", requirement: "Complete Web Development course" },
+  { id: "database_guru", name: "Database Guru", icon: "🗄️", requirement: "Complete SQL and DBMS courses" },
+  { id: "algo_pro", name: "Algo Pro", icon: "📊", requirement: "Score 80%+ in Data Structures" },
+  { id: "react_rockstar", name: "React Rockstar", icon: "⚛️", requirement: "Complete React JS course" },
+  { id: "ml_maven", name: "ML Maven", icon: "🤖", requirement: "Complete Machine Learning course" },
+  { id: "system_architect", name: "System Architect", icon: "🏗️", requirement: "Complete System Design course" },
+  { id: "video_viewer", name: "Video Viewer", icon: "🎬", requirement: "Watch 10 hours of videos" },
+  { id: "quiz_champion", name: "Quiz Champion", icon: "🏆", requirement: "Score 90%+ in 5 quizzes" },
+  { id: "learning_streak", name: "Learning Streak", icon: "🔥", requirement: "7-day consecutive learning" }
+];
+
+const userProfile = {
   name: "Asha Sharma",
   streak: 7,
   points: 2140,
   level: 12,
-  badge: "Quiz Master",
+  mainBadge: "Quiz Master",
   courses: [
-    { title: "Full-stack Web UI", category: "Web", progress: 86 },
-    { title: "Data Structures Quiz", category: "Quizzes", progress: 72 },
-    { title: "AI for Placements", category: "Placement", progress: 40 }
+    { id: 3, title: "Web Development", category: "Frontend", progress: 86, watched: 2700, youtube: "xND0t1pr3KY" },
+    { id: 4, title: "Data Structures", category: "Core", progress: 72, watched: 3600, youtube: "-TkoO8Z07hI" },
+    { id: 11, title: "Machine Learning", category: "AI", progress: 40, watched: 1260, youtube: "5OdVJbNCSso" }
   ],
   recommended: [
-    { title: "React Advanced", category: "Frontend", progress: 0 },
-    { title: "System Design Sprint", category: "Core", progress: 0 },
-    { title: "Interview Prep Lab", category: "Placement", progress: 0 }
+    { id: 9, title: "React JS", category: "Frontend", progress: 0, watched: 0, youtube: "CgkZ7MvWUAA" },
+    { id: 12, title: "System Design", category: "Advanced", progress: 0, watched: 0, youtube: "zZ6vybT1HQs" },
+    { id: 11, title: "Interview Prep Lab", category: "Placement", progress: 0 }
   ],
+  badges: ["video_viewer", "learning_streak", "quiz_champion"],
   notifications: [
     { title: "DreamTech is hiring", detail: "Frontend and Backend roles - 5 days left" },
     { title: "Placement workshop", detail: "Session at 6 PM on Friday" }
@@ -32,7 +61,7 @@
     { company: "CloudMatrix", role: "Data Analyst", status: "Interview" }
   ],
   experiences: [
-    { title: "Completed Full Stack UI", type: "Course", year: 2025 },
+    { title: "Completed Web Development", type: "Course", year: 2025 },
     { title: "B.Tech Computer Science", type: "Degree", year: 2024 },
     { title: "Campus Connect Portal", type: "Project", year: 2025 }
   ],
@@ -42,6 +71,36 @@
     { rank: 3, name: "Amit", points: 2080 }
   ]
 };
+
+function initializeVideoTracking() {
+  if (!localStorage.getItem("videoTracking")) {
+    const tracking = {};
+    allCourses.forEach((course) => {
+      tracking[course.youtube] = { watched: 0, lastWatched: null };
+    });
+    localStorage.setItem("videoTracking", JSON.stringify(tracking));
+  }
+}
+
+function getVideoProgress(youtubeId) {
+  initializeVideoTracking();
+  const tracking = JSON.parse(localStorage.getItem("videoTracking")) || {};
+  return tracking[youtubeId] || { watched: 0, lastWatched: null };
+}
+
+function updateVideoProgress(youtubeId, secondsWatched) {
+  initializeVideoTracking();
+  const tracking = JSON.parse(localStorage.getItem("videoTracking")) || {};
+  tracking[youtubeId] = {
+    watched: (tracking[youtubeId]?.watched || 0) + secondsWatched,
+    lastWatched: new Date().toISOString()
+  };
+  localStorage.setItem("videoTracking", JSON.stringify(tracking));
+}
+
+function getBadgeInfo(badgeId) {
+  return badgesAvailable.find((b) => b.id === badgeId) || null;
+}
 
 const appState = {
   currentPage: "courses"
@@ -108,14 +167,19 @@ function renderPage(page) {
 }
 
 function renderCourses() {
+  initializeVideoTracking();
+  const myCourseIds = userProfile.courses.map((c) => c.id);
+  const recommendedIds = userProfile.recommended.map((c) => c.id);
+  
   return `
     <div class="page-heading">
       <div>
         <h1>Courses Dashboard</h1>
-        <p class="page-note">Your default learning hub with courses, streak, and placement updates.</p>
+        <p class="page-note">Browse all courses with HD videos. Your progress is tracked automatically.</p>
       </div>
       <button class="button-primary" onclick="navigateTo('profile')">View Profile</button>
     </div>
+    
     <div class="card alert-card">
       <h2>Placement & hiring alerts</h2>
       ${userProfile.notifications.map((item) => `
@@ -128,44 +192,110 @@ function renderCourses() {
         </div>
       `).join("")}
     </div>
+    
     <div class="search-bar">
-      <input id="course-search" placeholder="Search courses, placement tips, or quizzes" />
+      <input id="course-search" placeholder="Search courses..." />
       <button class="button-primary">Search</button>
     </div>
+    
     <div class="section-row">
       <div class="section-title">
         <h3>My Courses</h3>
       </div>
-      <div class="course-list">
-        ${userProfile.courses.map((course) => `
-          <div class="course-card">
-            <div class="course-info">
-              <div class="course-title">${course.title}</div>
-              <div class="course-meta">${course.category} - ${course.progress}% complete</div>
-              <div class="progress-track"><div class="progress-fill" style="width: ${course.progress}%"></div></div>
+      <div class="courses-grid">
+        ${userProfile.courses.map((course) => {
+          const fullCourse = allCourses.find((c) => c.id === course.id);
+          const videoProgress = getVideoProgress(fullCourse?.youtube || "");
+          const watchedMinutes = Math.floor(videoProgress.watched / 60);
+          return `
+            <div class="video-card">
+              <div class="video-thumb">${fullCourse?.emoji || "📚"}</div>
+              <div class="video-body">
+                <div class="video-title">${course.title}</div>
+                <div class="video-meta">${fullCourse?.category || course.category}</div>
+                <div class="video-time">Watched: ${watchedMinutes} / ${Math.floor(fullCourse?.duration / 60)} min</div>
+                <div class="progress-track"><div class="progress-fill" style="width: ${course.progress}%"></div></div>
+              </div>
+              <button class="button-primary" onclick="openCourseVideo('${fullCourse?.youtube}', '${course.title}')">Watch</button>
             </div>
-            <span class="badge">${course.progress}%</span>
-          </div>
-        `).join("")}
+          `;
+        }).join("")}
       </div>
     </div>
+    
     <div class="section-row">
       <div class="section-title">
-        <h3>Recommended Courses</h3>
+        <h3>All Courses (${allCourses.length})</h3>
       </div>
-      <div class="course-list">
-        ${userProfile.recommended.map((course) => `
-          <div class="course-card">
-            <div class="course-info">
-              <div class="course-title">${course.title}</div>
-              <div class="course-meta">Recommended - ${course.category}</div>
+      <div class="courses-grid">
+        ${allCourses.map((course) => {
+          const videoProgress = getVideoProgress(course.youtube);
+          const watchedMinutes = Math.floor(videoProgress.watched / 60);
+          const isEnrolled = myCourseIds.includes(course.id);
+          return `
+            <div class="video-card">
+              <div class="video-thumb">${course.emoji}</div>
+              <div class="video-body">
+                <div class="video-title">${course.title}</div>
+                <div class="video-meta">${course.category}</div>
+                <div class="video-time">${watchedMinutes} / ${Math.floor(course.duration / 60)} min watched</div>
+              </div>
+              <button class="button-primary" onclick="openCourseVideo('${course.youtube}', '${course.title}')">View</button>
             </div>
-            <span class="badge">Start now</span>
+          `;
+        }).join("")}
+      </div>
+    </div>
+    
+    <div id="video-modal" class="video-modal hidden">
+      <div class="video-modal-content">
+        <button class="video-modal-close" onclick="closeCourseVideo()">✕</button>
+        <div class="video-player">
+          <iframe id="video-player" width="100%" height="500" src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+        <div class="video-info">
+          <h2 id="video-title"></h2>
+          <p id="video-time"></p>
+          <div class="action-group">
+            <button class="button-primary" onclick="markVideoWatched()">Log 10 Min Watch</button>
+            <button class="button-secondary" onclick="closeCourseVideo()">Close</button>
           </div>
-        `).join("")}
+        </div>
       </div>
     </div>
   `;
+}
+
+function openCourseVideo(youtubeId, title) {
+  const modal = document.getElementById("video-modal");
+  const player = document.getElementById("video-player");
+  const titleEl = document.getElementById("video-title");
+  const timeEl = document.getElementById("video-time");
+  
+  player.src = `https://www.youtube.com/embed/${youtubeId}`;
+  titleEl.textContent = title;
+  
+  const videoProgress = getVideoProgress(youtubeId);
+  const watchedMin = Math.floor(videoProgress.watched / 60);
+  timeEl.textContent = `Watched: ${watchedMin} minutes • Last watched: ${videoProgress.lastWatched ? new Date(videoProgress.lastWatched).toLocaleDateString() : "Never"}`;
+  
+  modal.classList.remove("hidden");
+  modal.dataset.videoId = youtubeId;
+}
+
+function closeCourseVideo() {
+  const modal = document.getElementById("video-modal");
+  modal.classList.add("hidden");
+  document.getElementById("video-player").src = "";
+}
+
+function markVideoWatched() {
+  const modal = document.getElementById("video-modal");
+  const youtubeId = modal.dataset.videoId;
+  updateVideoProgress(youtubeId, 600);
+  alert("10 minutes logged! Keep learning!");
+  closeCourseVideo();
+  renderPage("courses");
 }
 
 function renderTodo() {
@@ -379,6 +509,7 @@ function renderFriends() {
 }
 
 function renderProfile() {
+  const earnedBadges = userProfile.badges.map((badgeId) => getBadgeInfo(badgeId)).filter(Boolean);
   return `
     <div class="page-heading">
       <div>
@@ -413,12 +544,11 @@ function renderProfile() {
         </div>
       </div>
       <div class="card">
-        <h2>Achievements</h2>
+        <h2>Earned Badges (${earnedBadges.length})</h2>
         <div class="badge-list">
-          <span class="badge-pill">Quiz Master</span>
-          <span class="badge-pill">Big Brain</span>
-          <span class="badge-pill">Course Champ</span>
-          <span class="badge-pill">Top Scorer</span>
+          ${earnedBadges.map((badge) => `
+            <span class="badge-pill" title="${badge.requirement}">${badge.icon} ${badge.name}</span>
+          `).join("")}
         </div>
       </div>
     </div>
@@ -436,7 +566,7 @@ function renderProfile() {
         `).join("")}
       </div>
       <div class="card">
-        <h2>Experiences</h2>
+        <h2>Experiences & Certifications</h2>
         ${userProfile.experiences.map((item) => `
           <div class="experience-card">
             <div>

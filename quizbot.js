@@ -33,7 +33,7 @@ function initQuizBot() {
   root.innerHTML = `
     <div class="quizbot">
       <button class="quizbot-toggle" type="button">
-        <span class="quizbot-badge">Q</span>
+        <svg class="quizbot-badge" viewBox="0 0 200 240" xmlns="http://www.w3.org/2000/svg"><use href="#quizbot-robot"/></svg>
         <div>
           <strong>QuizBot</strong>
           <span>Practice assistant</span>

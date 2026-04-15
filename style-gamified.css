@@ -68,12 +68,11 @@ button {
   width: 58px;
   height: 58px;
   border-radius: 18px;
-  display: grid;
-  place-items: center;
+  display: block;
   font-weight: 800;
   color: #fff;
-  background: linear-gradient(135deg, #33d9ff, #7d5bff);
-  text-shadow: 0 0 18px rgba(51,217,255,0.45);
+  background: rgba(51,217,255,0.08);
+  padding: 4px;
 }
 
 .brand-name {
@@ -449,6 +448,105 @@ nav {
   gap: 12px;
 }
 
+.courses-grid {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+}
+
+.video-card {
+  background: rgba(8,12,24,0.98);
+  border: 1px solid rgba(51,217,255,0.1);
+  border-radius: 22px;
+  padding: 18px;
+  display: grid;
+  gap: 14px;
+}
+
+.video-thumb {
+  font-size: 3.5rem;
+  text-align: center;
+}
+
+.video-body {
+  display: grid;
+  gap: 6px;
+}
+
+.video-title {
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+
+.video-meta {
+  color: #b2caf0;
+  font-size: 0.85rem;
+}
+
+.video-time {
+  color: #33d9ff;
+  font-size: 0.82rem;
+  font-weight: 600;
+}
+
+.video-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.85);
+  display: grid;
+  place-items: center;
+  z-index: 100;
+  padding: 24px;
+}
+
+.video-modal.hidden {
+  display: none;
+}
+
+.video-modal-content {
+  background: rgba(2,8,22,0.96);
+  border-radius: 24px;
+  border: 1px solid rgba(51,217,255,0.18);
+  width: 100%;
+  max-width: 800px;
+  overflow: hidden;
+  position: relative;
+}
+
+.video-modal-close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  background: rgba(0,0,0,0.6);
+  border: none;
+  color: #eef4ff;
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  cursor: pointer;
+  z-index: 10;
+}
+
+.video-player {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: #000;
+}
+
+.video-info {
+  padding: 24px;
+}
+
+.video-info h2 {
+  margin-bottom: 10px;
+}
+
+.video-info p {
+  color: #b2caf0;
+  margin-bottom: 18px;
+}
+
+
 .leader-item {
   gap: 16px;
 }
@@ -523,12 +621,12 @@ nav {
 .quizbot-badge {
   width: 40px;
   height: 40px;
-  display: grid;
-  place-items: center;
+  display: block;
   border-radius: 14px;
   background: rgba(255,255,255,0.18);
   color: #050a14;
   font-weight: 700;
+  flex-shrink: 0;
 }
 
 .quizbot-panel {

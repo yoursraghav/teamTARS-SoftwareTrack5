@@ -11,7 +11,7 @@
     <div class="topbar">
       <button class="menu-toggle" aria-label="Open menu"><span class="menu-icon">☰</span></button>
       <div class="brand">
-        <span class="brand-mark">QL</span>
+        <svg class="brand-mark" viewBox="0 0 300 350" xmlns="http://www.w3.org/2000/svg"><use href="#questlog-logo"/></svg>
         <div>
           <div class="brand-name">QuestLog</div>
           <div class="brand-subtitle">Level up your learning</div>
@@ -47,6 +47,54 @@
     <main class="content" id="main-content"></main>
     <div id="quizbot-root"></div>
   </div>
+  <svg class="svg-assets" xmlns="http://www.w3.org/2000/svg" style="display: none;">
+    <symbol id="questlog-logo" viewBox="0 0 300 350">
+      <circle cx="150" cy="140" r="120" fill="rgba(124,99,255,0.15)"/>
+      <rect x="80" y="60" width="140" height="160" rx="12" fill="#7c4dff" stroke="#5a2d9f" stroke-width="3"/>
+      <text x="100" y="90" font-size="14" font-weight="bold" fill="#fff" letter-spacing="1">QUIZZES</text>
+      <rect x="95" y="100" width="110" height="6" rx="3" fill="#a370ff"/>
+      <circle cx="215" cy="103" r="7" fill="#ffd54f"/>
+      <text x="100" y="135" font-size="14" font-weight="bold" fill="#fff" letter-spacing="1">ASSIGNMENTS</text>
+      <rect x="95" y="145" width="110" height="6" rx="3" fill="#a370ff"/>
+      <text x="100" y="180" font-size="14" font-weight="bold" fill="#fff" letter-spacing="1">PROJECTS</text>
+      <rect x="95" y="190" width="110" height="6" rx="3" fill="#ff9800"/>
+      <path d="M 210 185 L 215 198 L 225 190 Z" fill="#ffd54f" stroke="#fff" stroke-width="1"/>
+      <circle cx="60" cy="80" r="8" fill="#6a4c93"/>
+      <path d="M 50 100 Q 60 95 70 100" fill="none" stroke="#6a4c93" stroke-width="3"/>
+      <polygon points="45,105 75,105 70,140 50,140" fill="#6a4c93"/>
+      <rect x="230" y="130" width="45" height="35" rx="3" fill="#8b6f47" stroke="#5a3d1a" stroke-width="2"/>
+      <path d="M 235 130 Q 257.5 120 280 130" fill="#b8956a"/>
+      <circle cx="245" cy="148" r="4" fill="#ffd54f"/>
+      <circle cx="265" cy="148" r="4" fill="#ffd54f"/>
+      <polygon points="190,50 195,60 206,62 198,69 200,80 190,76 180,80 182,69 174,62 185,60" fill="#ffd54f"/>
+      <polygon points="85,35 88,42 96,43 91,48 93,56 85,52 77,56 79,48 74,43 82,42" fill="#ffd54f"/>
+      <polygon points="260,80 263,87 271,88 266,93 268,101 260,97 252,101 254,93 249,88 257,87" fill="#ffd54f"/>
+    </symbol>
+    <symbol id="quizbot-robot" viewBox="0 0 200 240">
+      <rect x="50" y="20" width="100" height="100" rx="15" fill="#4a90e2" stroke="#2c5aa0" stroke-width="2"/>
+      <circle cx="100" cy="15" r="8" fill="#5a9ff5"/>
+      <rect x="98" y="8" width="4" height="8" fill="#5a9ff5"/>
+      <circle cx="75" cy="55" r="12" fill="#fff"/>
+      <circle cx="75" cy="55" r="8" fill="#ffd54f"/>
+      <circle cx="75" cy="55" r="5" fill="#333"/>
+      <circle cx="125" cy="55" r="12" fill="#fff"/>
+      <path d="M 118 55 Q 125 58 132 55" stroke="#ffd54f" stroke-width="8" fill="none" stroke-linecap="round"/>
+      <path d="M 118 55 Q 125 52 132 55" stroke="#333" stroke-width="4" fill="none" stroke-linecap="round"/>
+      <path d="M 85 95 Q 100 108 115 95" stroke="#2c5aa0" stroke-width="3" fill="none" stroke-linecap="round"/>
+      <rect x="45" y="125" width="110" height="85" rx="10" fill="#5a9ff5" stroke="#2c5aa0" stroke-width="2"/>
+      <rect x="70" y="140" width="60" height="50" rx="5" fill="#3d6cb9" stroke="#2c5aa0" stroke-width="1"/>
+      <rect x="20" y="145" width="25" height="50" rx="8" fill="#4a90e2" stroke="#2c5aa0" stroke-width="2"/>
+      <circle cx="32" cy="195" r="10" fill="#5a9ff5" stroke="#2c5aa0" stroke-width="2"/>
+      <rect x="155" y="145" width="25" height="50" rx="8" fill="#4a90e2" stroke="#2c5aa0" stroke-width="2"/>
+      <circle cx="168" cy="195" r="10" fill="#5a9ff5" stroke="#2c5aa0" stroke-width="2"/>
+      <circle cx="20" cy="175" r="4" fill="#5a9ff5"/>
+      <circle cx="25" cy="172" r="4" fill="#5a9ff5"/>
+      <circle cx="175" cy="175" r="4" fill="#5a9ff5"/>
+      <circle cx="180" cy="172" r="4" fill="#5a9ff5"/>
+      <rect x="75" y="210" width="15" height="25" rx="5" fill="#4a90e2" stroke="#2c5aa0" stroke-width="2"/>
+      <rect x="110" y="210" width="15" height="25" rx="5" fill="#4a90e2" stroke="#2c5aa0" stroke-width="2"/>
+    </symbol>
+  </svg>
   <script src="app.js"></script>
   <script src="quizbot.js"></script>
 </body>
